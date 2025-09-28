@@ -1,11 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AdminHeader } from "@/components/AdminHeader";
+import { AdminSidebar } from "@/components/AdminSidebar";
+import { AdminContent } from "@/components/AdminContent";
 
 const Index = () => {
+  const [activeSection, setActiveSection] = useState("admin");
+  const [activeItem, setActiveItem] = useState("Dashboard Overview");
+
+  const handleSectionChange = (sectionId: string, itemName: string) => {
+    setActiveSection(sectionId);
+    setActiveItem(itemName);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gradient-subtle">
+      <AdminHeader />
+      <div className="flex h-[calc(100vh-4rem)]">
+        <AdminSidebar 
+          activeSection={activeSection}
+          activeItem={activeItem}
+          onSectionChange={handleSectionChange}
+        />
+        <AdminContent 
+          activeSection={activeSection}
+          activeItem={activeItem}
+        />
       </div>
     </div>
   );
